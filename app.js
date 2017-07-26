@@ -7,7 +7,7 @@ var app = express();
 
 
 // mongodb connection
-mongoose.connect("mongodb://localhost:27017/bookworm");
+mongoose.connect("mongodb://localhost:27017/votingApp");
 var db = mongoose.connection;
 
 // mongo error

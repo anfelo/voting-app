@@ -2,10 +2,8 @@ extends layout
 
 block content
   .main.container.clearfix
-    .row
+    .row.text-xs-center
       .col-md-8.col-md-offset-2
-        h1.display-4
-          img.avatar.img-circle.hidden-xs-down(src='/images/avatar.png', alt='avatar')
-          | #{name}
-        h2.favorite-book Favorite Book
-        | #{favorite}
+        h1.display-3 DASHBOARD
+        a.btn.btn-info-outline.btn-lg(href='') New Poll
+        a.btn.btn-info-outline.btn-lg(href='') My Polls

@@ -6,4 +6,14 @@ block content
       .col-md-8.col-md-offset-2
         h1.display-3 DASHBOARD
         a.btn.btn-info-outline.btn-lg(href='') New Poll
-        a.btn.btn-info-outline.btn-lg(href='') My Polls
+        a.btn.btn-info-outline.btn-lg(href='/profile/polls') My Polls
+        .form-container
+          form(method='POST' action='/profile')
+            div.form-group
+              label(for='question') Question
+              input.form-control(type='text' id='question' placeholder='Poll Question' name='question' required)
+            div.form-group Choices
+              input.form-control.choice(type='text' id='choice1' placeholder='Choice 1' name='choice1' required)
+              input.form-control.choice(type='text' id='choice2' placeholder='Choice 2' name='choice2' required)
+            button.btn.btn-primary.add-choice(type='button') Add Choice
+            button.btn.btn-primary(type='submit') Submit 

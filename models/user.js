@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var PollSchema = require('./poll').PollSchema;
 var bcrypt = require('bcrypt');
 
 var UserSchema = new mongoose.Schema({
@@ -13,15 +14,11 @@ var UserSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  favoriteBook: {
-    type: String,
-    required: true,
-    trim: true
-  },
   password: {
     type: String,
     required: true
-  }
+  },
+  polls: [PollSchema]
 });
 // authenticate input against database documents
 UserSchema.statics.authenticate = function (email, password, callback){

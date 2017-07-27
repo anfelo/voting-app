@@ -29,6 +29,16 @@ a:hover {
 	padding: .5rem 0;
 	color: rgba(255,255,255, .6);
 }
+.form-container {
+	width: 100%;
+	margin-top: 5%;
+}
+.form-container .choice {
+	margin: 10px 0;
+}
+.add-choice {
+	margin-right: 10px;
+}
 
 /* Modifier Styles */
 

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	.main.container.clearfix
+		.row.text-xs-center
+			.col-md-8.col-md-offset-2
+				h1.display-3.md-4 My Polls  
+		.row.text-xs-center
+			.col-md-4.col-md-offset-4
+				ul.list-group.polls-list
+					each poll in polls
+						a(href='/profile/mypolls/'+poll._id)
+							li.poll-item.list-group-item= poll.text 

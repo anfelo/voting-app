@@ -16,7 +16,6 @@ var PollSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    unique: false,
   },
   answers: [AnswerSchema],
 });

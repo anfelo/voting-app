@@ -24,6 +24,7 @@ router.param('uID', function (req, res, next, id) {
 	User.findById(id, function(err, doc) {
 		if(err) return next(err);
 		if(!doc) {
+      console.log('Did not find user');
 			err = new Error('Not Found');
 			err.status = 404;
 			return next(err);
@@ -36,6 +37,7 @@ router.param('uID', function (req, res, next, id) {
 router.param('pID', function (req, res, next, id) {
   req.poll = req.user.polls.id(id);
 	if(!req.poll) {
+    console.log('Did not find poll');
 			err = new Error('Not Found');
 			err.status = 404;
 			return next(err);
@@ -109,32 +111,32 @@ router.get('/profile/mypolls', mid.requiresLogin, function(req,res, next){
         if (error) {
           return next(error);
         } else {
-          res.json( user.polls);
+          res.render('mypolls', {polls: user.polls, name: user.name, title: 'Polls'});
         }
       });
 });
 
 // GET /profile/mypolls/:qID
 router.get('/profile/mypolls/:qID', mid.requiresLogin, function(req,res, next){
-  res.render('pollSummary', {poll:req.poll.text, pId:req.poll._id, answers: req.poll.answers, name:req.user.name, uId:req.user._id});
+  res.render('pollSummary', {poll:req.poll.text, pId:req.poll._id, answers: req.poll.answers, name:req.user.name, uId:req.user._id, title: 'Poll Summary'});
 });
 
-// GET /:uID/:pID
-router.get('/:uID/:pID', function(req,res, next){
-  res.render('vote', {poll:req.poll.text, id:req.poll._id, answers: req.poll.answers});
+// GET /:uID/polls/:pID
+router.get('/:uID/polls/:pID', function(req,res, next){
+  res.render('vote', {poll:req.poll.text, id:req.poll._id, answers: req.poll.answers, uId:req.user._id, title: 'Vote'});
 });
 
-// POST /:uID/:qID
-router.post('/:uID/:qID', function(req,res, next){
+// POST /:uID/polls/:qID
+router.post('/:uID/polls/:pID', function(req,res, next){
   // Vote on answer
   req.poll.answers[req.body.choice].vote(function(err, poll) {
       if(err) return next(err);
-			res.redirect('/'+req.user._id+'/'+req.poll._id+'/results');
+			res.redirect('/'+req.user._id+'/polls/'+req.poll._id+'/results');
   });
 });
 
-// GET /:user/:qID/results
-router.get('/:uID/:qID/results', function(req,res, next){
+// GET /:user/polls/:qID/results
+router.get('/:uID/polls/:pID/results', function(req,res, next){
   res.render('results', {poll:req.poll.text, answers: req.poll.answers});
 });
 

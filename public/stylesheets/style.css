@@ -39,6 +39,47 @@ a:hover {
 .add-choice {
 	margin-right: 10px;
 }
+.polls-list {
+	margin-top: 20px;
+}
+.polls-list .poll-item {
+	background-color: #637a91;
+	color: white;
+	margin-bottom: 10px;
+	border: none;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+	transition: opacity 0.4s ease-out;
+}
+.polls-list .poll-item:hover {
+	opacity: .7;
+}
+.link-container {
+	margin-top: 30px;
+}
+.link-container .poll-link {
+	color: #31b0d5;
+}
+.answers-list {
+	margin-top: 20px;
+}
+.answer-item {
+	cursor: pointer;
+	background-color: #39add1;
+	color: white;
+	position: relative;
+	margin-bottom: 10px;
+	border-radius: 4px;
+	border: none;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+	transition: color 0.4s ease-out;
+}
+.answer-item:hover {
+	color: #7d669e;
+}
+.answer-item input {
+	position: absolute;
+	left: 30px;
+}
 
 /* Modifier Styles */
 

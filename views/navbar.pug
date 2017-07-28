@@ -8,8 +8,8 @@ nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse
       .nav-items.clearfix
       if currentUser
         div
-          a.nav-item.nav-link(href='profile') Hi #{name} 
+          a.nav-item.nav-link(href='/profile') Hi #{name} 
           a.btn.btn-light.pull-md-right(href='/logout') Log out
       else
-        a.btn.btn-info.pull-md-right(href='register') Sign Up
-        a.btn.btn-info.pull-md-right(href='login') Login
+        a.btn.btn-info.pull-md-right(href='/register') Sign Up
+        a.btn.btn-info.pull-md-right(href='/login') Login

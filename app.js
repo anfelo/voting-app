@@ -7,6 +7,7 @@ var app = express();
 
 
 // mongodb connection
+mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost:27017/votingApp");
 var db = mongoose.connection;
 
@@ -57,7 +58,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
-    error: {}
+    error: {},
+    title: 'Error'
   });
 });
 

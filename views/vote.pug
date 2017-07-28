@@ -5,12 +5,13 @@ block content
 		.row.text-xs-center
 			.col-md-8.col-md-offset-2
 				h1.display-3.md-4 #{poll}  
-		.row.text-xs-center
-			.col-md-4.col-md-offset-1
+		.row.text-xs-center.answers-list
+			.col-md-4.col-md-offset-4
 				// vote form
-				form(method='POST' action='')
+				form(method='POST' action='/'+uId+'/polls/'+id)
+					div.list-group
 					each answer, index in answers
-						div.form-group.radio
-						label(for='choice')= answer.text
-						input(type='radio' name='choice' value=index)
-					button.btn.btn-primary(type='submit') Vote
+						label.form-group.radio.list-group-item.answer-item
+							input(type='radio' name='choice' value=index)
+							span= answer.text
+					button.btn.btn-info-outline(type='submit') Vote

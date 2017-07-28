@@ -35,16 +35,16 @@ UserSchema.statics.authenticate = function (email, password, callback){
                     if(result === true) {
                         return callback(null, user);
                     } else {
-                        return callback();
+                        return callback(error);
                     }
                 });
             }
         });
 }
-
 // hash password before saving to database
 UserSchema.pre('save', function(next){
     var user = this;
+    if (!user.isModified('password')) return next();
     bcrypt.hash(user.password, 10, function(err, hash){
         if (err){
             return next(err);
@@ -52,10 +52,8 @@ UserSchema.pre('save', function(next){
             user.password = hash;
             next();
         }
-    });    
+    });  
 });
 
 var User = mongoose.model('User', UserSchema);
 module.exports = User;
-
-

@@ -8,7 +8,7 @@ var AnswerSchema = new Schema({
 
 AnswerSchema.method('vote', function(callback) {
 	this.votes += 1;
-	this.parent().save(callback);
+	this.parent().parent().save(callback);
 });
 
 var PollSchema = new Schema({

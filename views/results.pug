@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	.main.container.clearfix
+		.row.text-xs-center
+			.col-md-8.col-md-offset-2
+				h1.display-3.md-4 #{poll}  
+		.row.text-xs-center
+			.col-md-8.col-md-offset-1
+				h2.display-4 Results
+				ul
+					each answer in answers
+						li= answer.text + ': ' + answer.votes

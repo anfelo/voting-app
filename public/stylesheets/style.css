@@ -80,6 +80,10 @@ a:hover {
 	position: absolute;
 	left: 30px;
 }
+#results-chart {
+	padding: 10px 30px;
+	background-color: rgba(255, 255, 255, 0.7);
+}
 
 /* Modifier Styles */
 

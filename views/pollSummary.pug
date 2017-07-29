@@ -4,13 +4,10 @@ block content
 	.main.container.clearfix
 		.row.text-xs-center
 			.col-md-8.col-md-offset-2
-				h1.display-3.md-4 #{poll}  
+				h1.display-4.md-4 #{poll}  
 		.row.text-xs-center
 			.col-md-8.col-md-offset-2
-				h2.display-4 Results
-				ul
-					each answer in answers
-						li= answer.text + ': ' + answer.votes
+				canvas#results-chart(width='400' height='150' data-uId=uId data-pId=pId)
 		.row.text-xs-center.link-container
 			.col-md-8.col-md-offset-2
 				h2.display-5 Link

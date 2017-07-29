@@ -118,7 +118,7 @@ router.get('/profile/mypolls', mid.requiresLogin, function(req,res, next){
 
 // GET /profile/mypolls/:qID
 router.get('/profile/mypolls/:qID', mid.requiresLogin, function(req,res, next){
-  res.render('pollSummary', {poll:req.poll.text, pId:req.poll._id, answers: req.poll.answers, name:req.user.name, uId:req.user._id, title: 'Poll Summary'});
+  res.render('pollSummary', {poll:req.poll.text, pId:req.poll._id, name:req.user.name, uId:req.user._id, title: 'Poll Summary'});
 });
 
 // GET /:uID/polls/:pID
@@ -137,7 +137,10 @@ router.post('/:uID/polls/:pID', function(req,res, next){
 
 // GET /:user/polls/:qID/results
 router.get('/:uID/polls/:pID/results', function(req,res, next){
-  res.render('results', {poll:req.poll.text, answers: req.poll.answers});
+  if(req.query.format === 'json'){
+   return res.json(req.poll.answers);
+  }
+  res.render('results', {poll:req.poll.text, uId:req.user._id, pId:req.poll._id, title: 'Results'});
 });
 
 // GET /login

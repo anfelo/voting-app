@@ -4,14 +4,15 @@ block content
 	.main.container.clearfix
 		.row.text-xs-center
 			.col-md-8.col-md-offset-2
-				h1.display-3.md-4 #{poll}  
+				h1.display-4.md-4 #{poll}  
 		.row.text-xs-center.answers-list
 			.col-md-4.col-md-offset-4
 				// vote form
 				form(method='POST' action='/'+uId+'/polls/'+id)
 					div.list-group
 					each answer, index in answers
-						label.form-group.radio.list-group-item.answer-item
-							input(type='radio' name='choice' value=index)
-							span= answer.text
+						if(answer.text)
+							label.form-group.radio.list-group-item.answer-item
+								input(type='radio' name='choice' value=index)
+								span= answer.text
 					button.btn.btn-info-outline(type='submit') Vote

@@ -41,10 +41,13 @@ $(document).ready(function(){
 							success: function (data, textStatus, jqXHR) {
 									var chartData = {'labels':[], 'data':[], 'backgroundColor': [], 'borderColor': []}
 									data.forEach(function(element) {
-										chartData.labels.push(element.text);
-										chartData.data.push(element.votes);
-										chartData.backgroundColor.push(backgroundColor);
-										chartData.borderColor.push(borderColor);
+										if(element.text){
+											chartData.labels.push(element.text);
+											chartData.data.push(element.votes);
+											chartData.backgroundColor.push(backgroundColor);
+											chartData.borderColor.push(borderColor);
+										}
+										
 									});
 									displayChart(chartData);
 							},

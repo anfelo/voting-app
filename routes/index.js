@@ -85,6 +85,8 @@ router.post('/profile', mid.requiresLogin, function(req,res, next){
       answers: [
         {text:req.body.choice1},
         {text:req.body.choice2},
+        {text:req.body.choice3 || null},
+        {text:req.body.choice4 || null},
       ],
     };
 

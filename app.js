@@ -8,7 +8,7 @@ var app = express();
 
 // mongodb connection
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/votingApp");
+mongoose.connect(process.env.MONGOLAB_URI);
 var db = mongoose.connection;
 
 // mongo error

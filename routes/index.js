@@ -38,7 +38,7 @@ router.param('pID', function (req, res, next, id) {
   req.poll = req.user.polls.id(id);
 	if(!req.poll) {
     console.log('Did not find poll');
-			err = new Error('Not Found');
+			var err = new Error('Not Found');
 			err.status = 404;
 			return next(err);
 		}
@@ -124,25 +124,31 @@ router.get('/profile/mypolls/:qID', mid.requiresLogin, function(req,res, next){
 });
 
 // GET /:uID/polls/:pID
-router.get('/:uID/polls/:pID', function(req,res, next){
-  res.render('vote', {poll:req.poll.text, id:req.poll._id, answers: req.poll.answers, uId:req.user._id, title: 'Vote'});
+router.get('/:uID/polls/:pID', mid.getConnectedUser, function(req,res, next){
+  if(req.poll.ips.indexOf(req.headers['x-forwarded-for'].split(',')[0]) !== -1){
+     return res.redirect('/'+req.user._id+'/polls/'+req.poll._id+'/results');
+  }
+  res.render('vote', {poll:req.poll.text, id:req.poll._id, answers: req.poll.answers, uId:req.user._id, name: req.currentUserName, title: 'Vote'});
 });
 
 // POST /:uID/polls/:qID
 router.post('/:uID/polls/:pID', function(req,res, next){
   // Vote on answer
-  req.poll.answers[req.body.choice].vote(function(err, poll) {
+  req.poll.addIp(req.headers['x-forwarded-for'].split(',')[0], function(err){
+    if(err) return next(err);
+    req.poll.answers[req.body.choice].vote(function(err, poll) {
       if(err) return next(err);
 			res.redirect('/'+req.user._id+'/polls/'+req.poll._id+'/results');
+    });
   });
 });
 
 // GET /:user/polls/:qID/results
-router.get('/:uID/polls/:pID/results', function(req,res, next){
+router.get('/:uID/polls/:pID/results', mid.getConnectedUser, function(req,res, next){
   if(req.query.format === 'json'){
    return res.json(req.poll.answers);
   }
-  res.render('results', {poll:req.poll.text, uId:req.user._id, pId:req.poll._id, title: 'Results'});
+  res.render('results', {poll:req.poll.text, uId:req.user._id, pId:req.poll._id, name: req.currentUserName, title: 'Results'});
 });
 
 // GET /login
@@ -165,7 +171,7 @@ router.post('/login', function(req, res, next){
     });
   } else {
     var err = new Error('Email and password are required!');
-    error.status = 401;
+    err.status = 401;
     return next(err);
   }
 });
@@ -214,8 +220,8 @@ router.post('/register', function(req, res, next) {
 });
 
 // GET /
-router.get('/', function(req, res, next) {
-  return res.render('index', { title: 'Home' });
+router.get('/', mid.getConnectedUser, function(req, res, next) {
+  return res.render('index', { name: req.currentUserName, title: 'Home' });
 });
 
 module.exports = router;

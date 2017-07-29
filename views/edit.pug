@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  .main.container.clearfix
+    .row.text-xs-center
+      .col-md-8.col-md-offset-2
+        h1.display-4 #{poll}
+        .form-container
+          form(method='POST' action='/profile/mypolls/'+pId+'/edit')
+            div.form-group
+              label(for='question') Question
+              input.form-control(type='text' id='question' value=poll name='question' required)
+            div.form-group Choices
+              input.form-control.choice(type='text' id='choice1' value=answers[0].text name='choice1' required)
+              input.form-control.choice(type='text' id='choice2' value=answers[1].text name='choice2' required)
+              input.form-control.choice(type='text' id='choice3' value=answers[2].text || '' name='choice3')
+              input.form-control.choice(type='text' id='choice4' value=answers[3].text || '' name='choice4')
+            button.btn.btn-primary(type='submit') Edit 

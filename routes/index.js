@@ -123,6 +123,31 @@ router.get('/profile/mypolls/:qID', mid.requiresLogin, function(req,res, next){
   res.render('pollSummary', {poll:req.poll.text, pId:req.poll._id, name:req.user.name, uId:req.user._id, title: 'Poll Summary'});
 });
 
+// GET /profile/mypolls/:qID/delete
+router.get('/profile/mypolls/:qID/delete', mid.requiresLogin, function(req,res, next){
+  // Delete Poll
+  req.poll.remove( function (err) {
+		req.user.save(function(err, question) {
+			if(err) return next(err);
+			res.render('mypolls', {polls: req.user.polls, name: req.user.name, title: 'Polls'});
+		});
+	});
+});
+
+// GET /profile/mypolls/:qID/edit
+router.get('/profile/mypolls/:qID/edit', mid.requiresLogin, function(req,res, next){
+  res.render('edit', {poll:req.poll.text, pId:req.poll._id, name:req.user.name, answers: req.poll.answers, title: 'Poll Summary'});
+});
+
+// POST /profile/mypolls/:qID/edit
+router.post('/profile/mypolls/:qID/edit', mid.requiresLogin, function(req,res, next){
+  // Update Poll
+	req.poll.update(req.body, function(err, result) {
+		if(err) return next(err);
+		res.render('mypolls', {polls: req.user.polls, name: req.user.name, title: 'Polls'});
+	});
+});
+
 // GET /:uID/polls/:pID
 router.get('/:uID/polls/:pID', mid.getConnectedUser, function(req,res, next){
   if(req.poll.ips.indexOf(req.headers['x-forwarded-for'].split(',')[0]) !== -1){
